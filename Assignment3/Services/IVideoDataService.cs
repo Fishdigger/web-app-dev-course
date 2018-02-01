@@ -6,5 +6,6 @@ namespace Assignment1.Services {
         IEnumerable<Video> GetAll();
         Video Get(int id);
         void Add(Video video);
+        int Commit();
     }
 }

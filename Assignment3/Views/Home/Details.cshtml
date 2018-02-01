@@ -1,12 +1,11 @@
-@model Assignment1.ViewModels.VideoViewModel
+@model VideoViewModel
 
-<html>
-    <head><title>Video Details</title></head>
-    <body>
-        @Html.ActionLink("Home", "Index")
-        <br><br>
-        <div>Id: @Model.Id</div>
-        <div>Title: @Model.Title</div>
-        <div>Genre: @Model.Genre</div>
-    </body>
-</html>
+@{
+    ViewBag.Title = "Details";
+}
+
+@Html.ActionLink("Home", "Index")
+<br><br>
+<div>Id: @Model.Id</div>
+<div>Title: @Model.Title</div>
+<div>Genre: @Model.Genre</div>

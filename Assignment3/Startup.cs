@@ -6,16 +6,20 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using Assignment1.Services;
 using Microsoft.AspNetCore.Routing;
+using Assignment1.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace Assignment1
 {
     public class Startup
     {
-        public Startup ()
+        public Startup (IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.json", optional: true);
+
+            if (env.IsDevelopment()) builder.AddUserSecrets<Startup>();
 
             this.Configuration = builder.Build();
         }
@@ -29,7 +33,10 @@ namespace Assignment1
             services.AddMvc();
             services.AddSingleton(provider => Configuration);
             services.AddSingleton<IMessageService, ConfigurationMessageService>();
-            services.AddSingleton<IVideoDataService, MockVideoDataService>();
+            services.AddSingleton<IVideoDataService, SqlVideoDataService>();
+
+            var conn = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<VideoDbContext>(options => options.UseSqlServer(conn));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,12 +1,12 @@
 @model Video
 
 @{
-    ViewBag.Title = "Create";;
+    ViewBag.Title = $"Edit {Model.Title}";;
 }
 
-<h2>Create New Video</h2>
+<h2>@ViewBag.Title</h2>
 
-<form asp-action="Create" method="POST">
+<form asp-action="Edit" method="POST">
     <table>
         <div asp-validation-summary="All"></div>
         <tr>
@@ -20,7 +20,7 @@
             <td><span asp-validation-for="Genre"></span></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Create"></td>
+            <td><input type="submit" value="Edit"></td>
         </tr>
     </table>
     

@@ -48,9 +48,29 @@ namespace Assignment1.Controllers {
                     Genre = model.Genre
                 };
                 service.Add(video);
+                service.Commit();
                 return RedirectToAction("Details", new {id = video.Id});
             }
             return View();
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int id) {
+            var video = service.Get(id);
+            if (video == null) {return RedirectToAction("Index");}
+            return View(video);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, Video video) {
+            var oldVideo = service.Get(id);
+            if (oldVideo == null || !ModelState.IsValid) {
+                return View(video);
+            }
+            oldVideo.Title = video.Title;
+            oldVideo.Genre = video.Genre;
+            service.Commit();
+            return RedirectToAction("Details", new {id = oldVideo.Id});
         }
     }
 }

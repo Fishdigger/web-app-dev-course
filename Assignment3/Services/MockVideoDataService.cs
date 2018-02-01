@@ -28,5 +28,7 @@ namespace Assignment1.Services {
             video.Id = this._videos.Max(v => v.Id) + 1;
             this._videos.Add(video);
         }
+
+        public int Commit() => 0;
     }
 }
