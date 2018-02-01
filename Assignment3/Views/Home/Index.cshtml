@@ -1,0 +1,25 @@
+@model IEnumerable<Assignment1.ViewModels.VideoViewModel>
+
+<html> 
+    <head>
+        <title>Video</title>
+    </head>
+    <body>
+        <h3>Movies</h3>
+        <table>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Genre</th>
+            </tr>
+            @foreach (var video in Model) {
+                <tr>
+                    <td>@video.Id</td>
+                    <td>@video.Title</td>
+                    <td>@video.Genre</td>
+                    <td>@Html.ActionLink("Details", "Details", new {id = video.Id})</td>
+                </tr>
+            }
+        </table>
+    </body>
+</html>
