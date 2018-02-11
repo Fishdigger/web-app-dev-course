@@ -1,0 +1,18 @@
+@using Microsoft.AspNetCore.Identity
+@using Assignment1.Entities
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <div>@User.Identity.Name</div>
+        <form method="post" asp-controller="Account" asp-action="Logout">
+        <input type="submit" value="Logout" />
+    </form>
+}
+else
+{
+    <a href="/account/login">Login</a>
+    <a href="/account/register">Register</a>
+}

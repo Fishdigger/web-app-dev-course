@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width">
+        <title>@ViewBag.Title</title>
+    </head>
+
+    <body>
+        <div>
+            <div>
+                @await Html.PartialAsync("_LoginLinks")
+            </div>
+            @RenderBody()
+        </div>
+        <br>
+        <footer>
+            @RenderSection("footer", false)
+            @await Component.InvokeAsync("Message")
+        </footer>
+    </body>
+</html>
