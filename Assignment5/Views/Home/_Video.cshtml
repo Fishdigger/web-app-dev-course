@@ -1,0 +1,11 @@
+@model VideoViewModel
+
+<section class="panel panel-primary">
+    <div class="panel-heading">@Model.Title</div>
+    <div>@Model.Genre
+        <div>
+            <a asp-action="Details" asp-route-id="@Model.Id" class="btn btn-default">Details</a>
+            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+        </div>
+    </div>
+</section>
