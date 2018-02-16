@@ -1,0 +1,12 @@
+/home/joel/projects/web-app-dev-course/VideoOnDemand/bin/Debug/netcoreapp2.0/app.db
+/home/joel/projects/web-app-dev-course/VideoOnDemand/bin/Debug/netcoreapp2.0/VideoOnDemand.deps.json
+/home/joel/projects/web-app-dev-course/VideoOnDemand/bin/Debug/netcoreapp2.0/VideoOnDemand.runtimeconfig.json
+/home/joel/projects/web-app-dev-course/VideoOnDemand/bin/Debug/netcoreapp2.0/VideoOnDemand.runtimeconfig.dev.json
+/home/joel/projects/web-app-dev-course/VideoOnDemand/bin/Debug/netcoreapp2.0/VideoOnDemand.dll
+/home/joel/projects/web-app-dev-course/VideoOnDemand/bin/Debug/netcoreapp2.0/VideoOnDemand.pdb
+/home/joel/projects/web-app-dev-course/VideoOnDemand/obj/Debug/netcoreapp2.0/VideoOnDemand.csproj.CoreCompileInputs.cache
+/home/joel/projects/web-app-dev-course/VideoOnDemand/obj/Debug/netcoreapp2.0/UserSecretsAssemblyInfo.cs
+/home/joel/projects/web-app-dev-course/VideoOnDemand/obj/Debug/netcoreapp2.0/VideoOnDemand.AssemblyInfoInputs.cache
+/home/joel/projects/web-app-dev-course/VideoOnDemand/obj/Debug/netcoreapp2.0/VideoOnDemand.AssemblyInfo.cs
+/home/joel/projects/web-app-dev-course/VideoOnDemand/obj/Debug/netcoreapp2.0/VideoOnDemand.dll
+/home/joel/projects/web-app-dev-course/VideoOnDemand/obj/Debug/netcoreapp2.0/VideoOnDemand.pdb
