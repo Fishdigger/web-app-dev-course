@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using VideoOnDemand.Data;
 using VideoOnDemand.Models;
 using VideoOnDemand.Services;
+using VideoOnDemand.Repositories;
+using VideoOnDemand.Entities;
+using VideoOnDemand.Models.DTOModels;
 
 namespace VideoOnDemand
 {
@@ -37,6 +40,32 @@ namespace VideoOnDemand
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
+            services.AddSingleton<IReadRepository, MockReadRepository>();
+            var config = new AutoMapper.MapperConfiguration(cfg =>{
+                cfg.CreateMap<Video, VideoDTO>();
+                cfg.CreateMap<Download, DownloadDTO>()
+                    .ForMember(
+                        dest => dest.DownloadUrl,
+                        src => src.MapFrom(s => s.Url)
+                    )
+                    .ForMember(
+                        dest => dest.DownloadTitle,
+                        src => src.MapFrom(s => s.Title)
+                    );
+                cfg.CreateMap<Instructor, InstructorDTO>()
+                    .ForMember(dest => dest.InstructorAvatar, src => src.MapFrom(s => s.Thumbnail))
+                    .ForMember(dest => dest.InstructorDescription, src => src.MapFrom(s => s.Description))
+                    .ForMember(dest => dest.InstructorName, src => src.MapFrom(s => s.Name));
+                cfg.CreateMap<Course, CourseDTO>()
+                    .ForMember(dest => dest.CourseId, src => src.MapFrom(s => s.Id))
+                    .ForMember(dest => dest.CourseDescription, src => src.MapFrom(s => s.Description))
+                    .ForMember(dest => dest.CourseImageUrl, src => src.MapFrom(s => s.ImageUrl))
+                    .ForMember(dest => dest.CourseTitle, src => src.MapFrom(s => s.Title));
+                cfg.CreateMap<Module, ModuleDTO>()
+                    .ForMember(dest => dest.ModuleTitle, src => src.MapFrom(s => s.Title));
+            });
+            var mapper = config.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

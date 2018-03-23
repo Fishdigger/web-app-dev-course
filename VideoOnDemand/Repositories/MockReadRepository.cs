@@ -44,6 +44,21 @@ namespace VideoOnDemand.Repositories {
                 .FirstOrDefault().Video;
         }
 
+        public IEnumerable<Video> GetVideos(string userId, int moduleId) {
+            var videos = _videos.Join(
+                _userCourses,
+                v => v.CourseId,
+                uc => uc.CourseId,
+                (v, uc) => new { Video = v, UserCourse = uc }
+            ).Where(vuc => vuc.UserCourse.UserId == userId);
+            if (moduleId == 0) {
+                return videos.Select(s => s.Video);
+            }
+            else {
+                return videos.Where(v => v.Video.ModuleId == moduleId).Select(s => s.Video);
+            }
+        }
+
         #region Mock Data
 
             List<Course> _courses = new List<Course> {
@@ -83,11 +98,11 @@ namespace VideoOnDemand.Repositories {
                     CourseId = 2
                 },
                 new UserCourse {
-                    UserId = "00000000-0000-0000-0000-000000000000",
+                    UserId = "c4dd4857-f77b-415c-95f5-a09e84a044d4",
                     CourseId = 3
                 },
                 new UserCourse {
-                    UserId = "00000000-0000-0000-0000-000000000000",
+                    UserId = "c4dd4857-f77b-415c-95f5-a09e84a044d4",
                     CourseId = 1
                 }
             };
