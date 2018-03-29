@@ -22,14 +22,10 @@ namespace VideoOnDemand.Controllers
 
         public IActionResult Index()
         {
-            var repo = new MockReadRepository();
             if (!signInManager.IsSignedIn(User)) {
                 return RedirectToAction("Login", "Account");
             }
-            var courses = repo.GetCourses(mockUserId);
-            var course = repo.GetCourse(1, mockUserId);
-            var video = repo.GetVideo(mockUserId, 1);
-            return View();
+            return RedirectToAction("Dashboard", "Membership");
         }
 
         public IActionResult About()
