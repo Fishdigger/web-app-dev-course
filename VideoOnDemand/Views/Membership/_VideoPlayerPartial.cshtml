@@ -1,0 +1,47 @@
+@model VideoViewModel
+
+<div class="panel">
+    @if (Model.Video.Url != null) {
+        <div id="video" class="video-margin">
+            <video class="video-js" controls data-setup='{}'>
+                //I'm using vjs here because I couldn't bring myself to pay for jwplayer
+                <source src="//vjs.zencdn.net/v/oceans.mp4" type="video/mp4">
+                <source src="//vjs.zencdn.net/v/oceans.webm" type="video/webm">
+
+                //If we had actual videos, we could put them in src
+                //<source src="@Model.Video.Url" type="video/mp4">
+            </video>
+        </div>
+        // <div id="hiddenUrl" hidden="hidden">@Model.Video.Url</div>
+        // <div id="hiddenImageUrl" hidden="hidden">@Model.Video.Thumbnail</div>
+    }
+
+    <div class="panel-body">
+        <h2 class="text-dark">@Model.Video.Title</h2>
+        <p class="text-light">
+            <i class="glyphicon glyphicon-facetime-video"></i>
+            Lesson @Model.Lesson.LessonNumber/@Model.Lesson.NumberOfLessons&nbsp;&nbsp;
+            <i class="glyphicon glyphicon-time"></i>
+            @Model.Video.Duration minutes
+        </p>
+        <div class="media-object">
+            <div class="media-left">
+                <img src="@Model.Course.CourseImageUrl" />
+            </div>
+            <div class="media-body media-middle">
+                <p>@Model.Course.CourseTitle</p>
+            </div>
+        </div>
+    </div>
+    <hr class="no-margin" />
+    <div class="panel-body">
+        @Model.Video.Description
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        let videoUrl = @Model.Video.Url;
+        let videoThumbnail = @Model.Video.Thumbnail;
+    </script>
+}

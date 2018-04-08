@@ -40,7 +40,7 @@ namespace VideoOnDemand
             services.AddTransient<IEmailSender, EmailSender>();
 
             services.AddMvc();
-            services.AddSingleton<IReadRepository, MockReadRepository>();
+            services.AddSingleton<IReadRepository, SqlReadRepository>();
             var config = new AutoMapper.MapperConfiguration(cfg =>{
                 cfg.CreateMap<Video, VideoDTO>();
                 cfg.CreateMap<Download, DownloadDTO>()
@@ -69,7 +69,7 @@ namespace VideoOnDemand
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ApplicationDbContext dbContext)
         {
             if (env.IsDevelopment())
             {
@@ -91,6 +91,8 @@ namespace VideoOnDemand
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            DbInitializer.Initialize(dbContext);
         }
     }
 }

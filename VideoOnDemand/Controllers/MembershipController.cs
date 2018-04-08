@@ -85,7 +85,9 @@ namespace VideoOnDemand.Controllers {
                     NextVideoId = nextId,
                     PreviousVideoId = previousId,
                     NextVideoTitle = nextTitle,
-                    NextVideoThumbnail = nextThumbnail
+                    NextVideoThumbnail = nextThumbnail,
+                    CurrentVideoTitle = video.Title,
+                    CurrentVideoThumbnail = video.Thumbnail
                 }
             };
             return View(vm);
