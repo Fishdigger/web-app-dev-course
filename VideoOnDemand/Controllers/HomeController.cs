@@ -12,7 +12,6 @@ namespace VideoOnDemand.Controllers
 {
     public class HomeController : Controller
     {
-        private string mockUserId = "4ad684f8-bb70-4968-85f8-458aa7dc19a3";
         private SignInManager<ApplicationUser> signInManager;
 
         public HomeController(SignInManager<ApplicationUser> manager) {

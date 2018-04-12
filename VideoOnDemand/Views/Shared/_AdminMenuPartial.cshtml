@@ -1,0 +1,22 @@
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin")) {
+    <ul class="nav navbar-nav">
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"
+            role="button" aria-expanded="false">
+                Admin
+                <img src="~/images/Ice-Age-Scrat-icon.png" class="img-circle avatar"
+                alt="" height="40" />
+                <span class="caret text-light hidden-xs"></span>
+            </a>
+        </li>
+        <li><a asp-controller="Instructors" asp-action="Index">Instructors</a></li>
+        <li><a asp-controller="Courses" asp-action="Index">Courses</a></li>
+        <li><a asp-controller="Downloads" asp-action="Index">Downloads</a></li>
+        <li><a asp-controller="Modules" asp-action="Index">Modules</a></li>
+        <li><a asp-controller="UserCourses" asp-action="Index">User Courses</a></li>
+        <li><a asp-controller="Videos" asp-action="Index">Videos</a></li>
+    </ul>
+}
