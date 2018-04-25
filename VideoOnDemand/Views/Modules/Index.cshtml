@@ -7,7 +7,7 @@
 <h2>Index</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <button-container Controller="Modules" Actions="Create,Index" Descriptions="Create New,Back to List" use-glyphs="false"></button-container>
 </p>
 <table class="table">
     <thead>
@@ -30,10 +30,8 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Course.Title)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td class="button-col-width">
+                <button-container controller="Modules" actions="Edit,Details,Delete" id="@item.Id" use-glyphs="true"></button-container>
             </td>
         </tr>
 }
