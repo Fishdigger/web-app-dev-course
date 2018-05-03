@@ -15,6 +15,7 @@ func Initialize() {
 	Router.GET("/books/", controllers.GetAllBooks)
 	Router.POST("/books/", controllers.CreateBook)
 	Router.POST("/books/:id", controllers.EditBook)
+	Router.DELETE("/books/:id", controllers.DeleteBook)
 	Router.GET("/", home)
 }
 

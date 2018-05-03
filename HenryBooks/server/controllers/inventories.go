@@ -16,26 +16,26 @@ func GetInventory(w http.ResponseWriter, r *http.Request, params httprouter.Para
 	var inv entities.Inventory
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil {
-		Send(w, err, http.StatusBadRequest)
+		Send(&w, err, http.StatusBadRequest)
 		return
 	}
 
 	db.Conn.First(&inv, id)
-	Send(w, inv, http.StatusOK)
+	Send(&w, inv, http.StatusOK)
 }
 
 //GetAllInventories ... GET /inventories/
 func GetAllInventories(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	var invs []entities.Inventory
 	db.Conn.Find(&invs)
-	Send(w, invs, http.StatusOK)
+	Send(&w, invs, http.StatusOK)
 }
 
 //EditInventory ... POST /inventories/:id
 func EditInventory(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil {
-		Send(w, err, http.StatusUnprocessableEntity)
+		Send(&w, err, http.StatusUnprocessableEntity)
 		return
 	}
 
@@ -47,7 +47,7 @@ func EditInventory(w http.ResponseWriter, r *http.Request, params httprouter.Par
 	defer r.Body.Close()
 	err = json.Unmarshal(body, &updated)
 	if err != nil {
-		Send(w, err, http.StatusUnprocessableEntity)
+		Send(&w, err, http.StatusUnprocessableEntity)
 		return
 	}
 
@@ -62,21 +62,21 @@ func CreateInventory(w http.ResponseWriter, r *http.Request, params httprouter.P
 	defer r.Body.Close()
 	err := json.Unmarshal(body, &inv)
 	if err != nil || !db.Conn.NewRecord(inv) {
-		Send(w, err, http.StatusBadRequest)
+		Send(&w, err, http.StatusBadRequest)
 		return
 	}
 	db.Conn.Create(&inv)
-	Send(w, inv, http.StatusCreated)
+	Send(&w, inv, http.StatusCreated)
 }
 
 //DeleteInventory ... DELETE /inventories/:id
 func DeleteInventory(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil {
-		Send(w, err, http.StatusNotFound)
+		Send(&w, err, http.StatusNotFound)
 		return
 	}
 
 	db.Conn.Where("ID = ?", id).Delete(&entities.Inventory{})
-	Send(w, "", http.StatusOK)
+	Send(&w, "", http.StatusOK)
 }

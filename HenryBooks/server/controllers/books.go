@@ -20,14 +20,17 @@ func GetBook(rw http.ResponseWriter, req *http.Request, params httprouter.Params
 		return
 	}
 	db.Conn.First(&book, id)
-	Send(rw, book, http.StatusOK)
+	Send(&rw, book, http.StatusOK)
 }
 
 //GetAllBooks ... GET /books
 func GetAllBooks(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	if r.Method == "OPTIONS" {
+		return
+	}
 	var books []entities.Book
 	db.Conn.Find(&books)
-	Send(w, books, 200)
+	Send(&w, books, http.StatusOK)
 }
 
 //EditBook ... POST /books/:id
@@ -48,14 +51,14 @@ func EditBook(w http.ResponseWriter, r *http.Request, params httprouter.Params) 
 
 	err = json.Unmarshal(body, &updated)
 	if err != nil {
-		Send(w, err, http.StatusUnprocessableEntity)
+		Send(&w, err, http.StatusUnprocessableEntity)
 		return
 	}
 
 	updated.ID = existing.ID
 	db.Conn.Save(&updated)
 
-	Send(w, updated, http.StatusAccepted)
+	Send(&w, updated, http.StatusAccepted)
 }
 
 //CreateBook ... POST /books/
@@ -65,23 +68,23 @@ func CreateBook(w http.ResponseWriter, r *http.Request, params httprouter.Params
 	defer r.Body.Close()
 	err := json.Unmarshal(body, &book)
 	if err != nil || !db.Conn.NewRecord(book) {
-		Send(w, err, http.StatusBadRequest)
+		Send(&w, err, http.StatusBadRequest)
 		return
 	}
 
 	db.Conn.Create(&book)
 	db.Conn.First(&book)
-	Send(w, book, http.StatusCreated)
+	Send(&w, book, http.StatusCreated)
 }
 
 //DeleteBook ... DELETE /books/:id
 func DeleteBook(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
 	id, err := strconv.Atoi(params.ByName("id"))
 	if err != nil {
-		Send(w, err, http.StatusNotFound)
+		Send(&w, err, http.StatusNotFound)
 		return
 	}
 
 	db.Conn.Where("ID = ?", id).Delete(&entities.Book{})
-	Send(w, "", http.StatusOK)
+	Send(&w, "", http.StatusOK)
 }
