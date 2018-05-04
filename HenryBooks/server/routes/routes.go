@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	"github.com/Fishdigger/web-app-dev-course/HenryBooks/server/controllers"
+	"github.com/Fishdigger/web-app-dev-course/HenryBooks/server/version"
 	"github.com/julienschmidt/httprouter"
 )
 
@@ -26,9 +27,12 @@ func Initialize() {
 	Router.POST("/inventories", controllers.CreateInventory)
 	Router.POST("/inventories/:id", controllers.EditInventory)
 	Router.DELETE("/inventories/:id", controllers.DeleteInventory)
+	Router.POST("/users/create", controllers.CreateUser)
+	Router.POST("/users", controllers.Authenticate)
 	Router.GET("/", home)
 }
 
-func home(rw http.ResponseWriter, r *http.Request, p httprouter.Params) {
-	rw.Write([]byte("Hello World"))
+func home(w http.ResponseWriter, r *http.Request, params httprouter.Params) {
+	v := version.GetVersion()
+	w.Write([]byte(v))
 }
