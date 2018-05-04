@@ -125,7 +125,7 @@ export default class extends React.Component {
                         </FormGroup>
 
                         <Button onClick={this.createInventory} bsStyle="success" bsSize="large" block>
-                            Create
+                            Save
                         </Button>
                     </form>
                 }

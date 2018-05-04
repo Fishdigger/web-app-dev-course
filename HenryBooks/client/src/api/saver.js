@@ -2,14 +2,28 @@ import * as helper from "./helper"
 
 const post = (url, data) => {
     return fetch(url, { method: "POST", body: JSON.stringify(data) })
-    .then(r => r.json())
-    .catch(err => { console.log(err) })
+    .then(r => {
+        if (r.status >= 300) {
+            throw new Error(`Server responded with ${r.status}`)
+        }
+        return r.json()
+    })
+    .catch(err => {
+        throw err
+    })
 }
 
 const del = (url) => {
     return fetch(url, { method: "DELETE" })
-    .then(r => r.json())
-    .catch(err => { console.log(err) })
+    .then(r => {
+        if (r.status >= 300) {
+            throw new Error(`Server responded with ${r.status}`)
+        }
+        return r.json()
+    })
+    .catch(err => {
+        throw err
+    })
 }
 
 export const saveBook = (book, id = null) => {
