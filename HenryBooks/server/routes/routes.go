@@ -27,8 +27,6 @@ func Initialize() {
 	Router.POST("/inventories", controllers.CreateInventory)
 	Router.POST("/inventories/:id", controllers.EditInventory)
 	Router.DELETE("/inventories/:id", controllers.DeleteInventory)
-	Router.POST("/users/create", controllers.CreateUser)
-	Router.POST("/users", controllers.Authenticate)
 	Router.GET("/", home)
 }
 

@@ -7,12 +7,6 @@ func Seed() {
 	Conn.AutoMigrate(&entities.Book{})
 	Conn.AutoMigrate(&entities.Branch{})
 	Conn.AutoMigrate(&entities.Inventory{})
-	Conn.AutoMigrate(&entities.User{})
-
-	admin := entities.User{
-		Username: "admin",
-		Password: "admin",
-	}
 
 	var books = make([]entities.Book, 3)
 	books[0] = entities.Book{
@@ -91,8 +85,5 @@ func Seed() {
 		if Conn.NewRecord(inv) {
 			Conn.Create(&inv)
 		}
-	}
-	if Conn.NewRecord(&admin) {
-		Conn.Create(&admin)
 	}
 }
