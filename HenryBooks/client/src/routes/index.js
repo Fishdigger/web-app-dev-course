@@ -10,6 +10,10 @@ import BranchIndex from "../branches/indexPage"
 import BranchDetails from "../branches/details"
 import BranchEdit from "../branches/edit"
 import BranchCreate from "../branches/create"
+import InvCreate from "../inventories/create"
+import InvIndex from "../inventories/indexPage"
+import InvDetails from "../inventories/details"
+import InvEdit from "../inventories/edit"
 
 export default () => {
     return (
@@ -51,6 +55,15 @@ export default () => {
             <Route exact path="/branches/:id" render={props => (
                 <BranchDetails getUrl={`${config.serverUrl}/branches/${props.match.params.id}`} branchId={props.match.params.id} />
             )} />
+            <Route path="/inventories/create" component={InvCreate}/>
+            <Route path="/inventories/index" component={InvIndex}/>
+            <Route path="/inventories/:id/edit" render={props => (
+                <InvEdit invId={props.match.params.id} />
+            )}/>
+            <Route path="/inventories/:id" render={props => (
+                <InvDetails invId={props.match.params.id} />
+            )}/>
+            
         </Switch>
     )
 }

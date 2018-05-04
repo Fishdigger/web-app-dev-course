@@ -1,5 +1,7 @@
 import React from "react"
 import { Modal, Button, Alert, Table } from "react-bootstrap";
+import * as getter from "../api/getter"
+import * as saver from "../api/saver"
 
 export default class extends React.Component {
     constructor(props) {
@@ -17,9 +19,9 @@ export default class extends React.Component {
         this.closeDeleteErrorAlert = this.closeDeleteErrorAlert.bind(this)
     }
     componentDidMount() {
-        fetch(this.props.getUrl).then(response => response.json())
+        getter.getBooks()
         .then(r => {
-            this.setState({ books: r })
+            this.setState({ books: r})
         })
         .catch(err => { console.log(err) })
     }
@@ -71,18 +73,13 @@ export default class extends React.Component {
     }
 
     confirmDelete() {
-        fetch(`${this.props.deleteUrl}/${this.state.bookToDelete}`, {
-            method: "DELETE"
-        })
+        saver.delBook(this.state.bookToDelete)
         .then(r => {
-            if (r.status !== 200) {
-                this.setState({ showDeleteError: true, showDeleteConfirm: false })
-            }
-            else {
-                let books = this.state.books.filter(b => b.ID !== this.state.bookToDelete)
-                this.setState({ books: books, bookToDelete: null, showDeleteConfirm: false })
-            }
-            return r.json()
+            let books = this.state.books.filter(b => b.ID !== this.state.bookToDelete)
+            this.setState({ books: books, bookToDelete: null, showDeleteConfirm: false })
+        })
+        .catch(() => {
+            this.setState({ showDeleteError: true, showDeleteConfirm: false })
         })
     }
 

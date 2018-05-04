@@ -1,5 +1,6 @@
 import React from "react"
 import { Row, Col, Button } from "react-bootstrap"
+import * as getter from "../api/getter"
 
 export default class extends React.Component {
     constructor(props) {
@@ -8,7 +9,7 @@ export default class extends React.Component {
     }
 
     componentDidMount() {
-        fetch(this.props.getUrl).then(res => res.json())
+        getter.getBook(this.props.bookId)
         .then(r => {
             this.setState({ book: r })
         })

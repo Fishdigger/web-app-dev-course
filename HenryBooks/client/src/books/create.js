@@ -1,5 +1,6 @@
 import React from "react"
 import { FormGroup, ControlLabel, Button, FormControl, Alert } from "react-bootstrap";
+import * as saver from "../api/saver"
 
 export default class extends React.Component {
     constructor(props) {
@@ -31,17 +32,14 @@ export default class extends React.Component {
     }
 
     createBook() {
-        return fetch(this.props.saveUrl, {
-            method: "POST",
-            body: JSON.stringify({
-                Title: this.state.title,
-                Author: this.state.author,
-                Description: this.state.description,
-                Price: Number(this.state.price),
-                ThumbnailUrl: this.state.thumbnailUrl
-            })
+        saver.saveBook({
+            Title: this.state.title,
+            Author: this.state.author,
+            Description: this.state.description,
+            Price: Number(this.state.price),
+            ThumbnailUrl: this.state.thumbnailUrl
         })
-        .then(res => {
+        .then(r => {
             window.location="/books/index"
         })
         .catch(() => {

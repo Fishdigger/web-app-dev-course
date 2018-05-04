@@ -19,6 +19,10 @@ export default () => {
                     <MenuItem href="/branches/index">Manage</MenuItem>
                     <MenuItem href="/branches/create">Create New</MenuItem>
                 </NavDropdown>
+                <NavDropdown title="Inventory" id="invDropdown">
+                    <MenuItem href="/inventories/index">Manage</MenuItem>
+                    <MenuItem href="/inventories/create">Add Inventory</MenuItem>
+                </NavDropdown>
             </Nav>
         </Navbar>
     )

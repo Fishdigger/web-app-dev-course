@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"strconv"
@@ -53,6 +54,7 @@ func EditInventory(w http.ResponseWriter, r *http.Request, params httprouter.Par
 
 	updated.ID = existing.ID
 	db.Conn.Save(&updated)
+	Send(&w, updated, http.StatusAccepted)
 }
 
 //CreateInventory ... POST /inventories/
@@ -65,6 +67,7 @@ func CreateInventory(w http.ResponseWriter, r *http.Request, params httprouter.P
 		Send(&w, err, http.StatusBadRequest)
 		return
 	}
+	fmt.Println(inv)
 	db.Conn.Create(&inv)
 	Send(&w, inv, http.StatusCreated)
 }

@@ -21,6 +21,11 @@ func Initialize() {
 	Router.POST("/branches/", controllers.CreateBranch)
 	Router.POST("/branches/:id", controllers.EditBranch)
 	Router.DELETE("/branches/:id", controllers.DeleteBranch)
+	Router.GET("/inventories/:id", controllers.GetInventory)
+	Router.GET("/inventories", controllers.GetAllInventories)
+	Router.POST("/inventories", controllers.CreateInventory)
+	Router.POST("/inventories/:id", controllers.EditInventory)
+	Router.DELETE("/inventories/:id", controllers.DeleteInventory)
 	Router.GET("/", home)
 }
 
