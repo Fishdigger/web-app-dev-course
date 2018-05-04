@@ -32,6 +32,8 @@ func main() {
 	c := cors.New(cors.Options{
 		AllowedOrigins: []string{"http://localhost:3000"},
 		AllowedMethods: []string{"GET", "POST", "DELETE", "OPTIONS"},
+		Debug:          true,
+		AllowedHeaders: []string{"Content-Type", "Allow"},
 	})
 
 	handler := c.Handler(routes.Router)

@@ -13,11 +13,11 @@ export default () => {
             <Nav>
                 <NavDropdown title="Books" id="bookDropdown">
                     <MenuItem href="/books/index">Manage</MenuItem>
-                    <MenuItem>Create New</MenuItem>
+                    <MenuItem href="/books/create">Create New</MenuItem>
                 </NavDropdown>
                 <NavDropdown title="Branches" id="branchDropdown">
-                    <MenuItem>Manage</MenuItem>
-                    <MenuItem>Create New</MenuItem>
+                    <MenuItem href="/branches/index">Manage</MenuItem>
+                    <MenuItem href="/branches/create">Create New</MenuItem>
                 </NavDropdown>
             </Nav>
         </Navbar>

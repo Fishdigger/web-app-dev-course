@@ -7,7 +7,7 @@ export default class extends React.Component {
         
         this.state = {
             showDeleteConfirm: false,
-            bookToDelete: null,
+            branchToDelete: null,
             showDeleteError: false
         }
 
@@ -19,17 +19,17 @@ export default class extends React.Component {
     componentDidMount() {
         fetch(this.props.getUrl).then(response => response.json())
         .then(r => {
-            this.setState({ books: r })
+            this.setState({ branches: r })
         })
         .catch(err => { console.log(err) })
     }
 
-    onDeleteClick(bookId) {
-        this.setState({ showDeleteConfirm: true, bookToDelete: bookId })
+    onDeleteClick(id) {
+        this.setState({ showDeleteConfirm: true, branchToDelete: id })
     }
 
     closeDeleteConfirm() {
-        this.setState({ showDeleteConfirm: false, bookToDelete: null })
+        this.setState({ showDeleteConfirm: false, branchToDelete: null })
     }
 
     closeDeleteErrorAlert() {
@@ -41,26 +41,30 @@ export default class extends React.Component {
             <Table striped bordered condensed hover>
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Author</th>
-                        <th>Description</th>
-                        <th>Price</th>
+                        <th>Name</th>
+                        <th>Street Address</th>
+                        <th>City</th>
+                        <th>State</th>
+                        <th>Zip Code</th>
+                        <th>Phone Number</th>
                         <th></th>
                         <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
-                    {this.state.books.map((book) => (
+                    {this.state.branches.map((branch) => (
                             <tr>
-                                <td>{book.Title}</td>
-                                <td>{book.Author}</td>
-                                <td>{book.Description}</td>
-                                <td>{book.Price}</td>
-                                <td><Button bsStyle="primary" href={`/books/${book.ID}`}>Details</Button></td>
-                                <td><Button bsStyle="default" href={`/books/${book.ID}/edit`}>Edit</Button></td>
+                                <td>{branch.Name}</td>
+                                <td>{branch.StreetAddress}</td>
+                                <td>{branch.City}</td>
+                                <td>{branch.State}</td>
+                                <td>{branch.ZipCode}</td>
+                                <td>{branch.PhoneNumber}</td>
+                                <td><Button bsStyle="primary" href={`/branches/${branch.ID}`}>Details</Button></td>
+                                <td><Button bsStyle="default" href={`/branches/${branch.ID}/edit`}>Edit</Button></td>
                                 <td><Button bsStyle="danger" onClick={() => {
-                                    this.onDeleteClick(book.ID)
+                                    this.onDeleteClick(branch.ID)
                                 }}>Delete</Button></td>
                             </tr>
                         )                  
@@ -71,7 +75,7 @@ export default class extends React.Component {
     }
 
     confirmDelete() {
-        fetch(`${this.props.deleteUrl}/${this.state.bookToDelete}`, {
+        fetch(`${this.props.deleteUrl}/${this.state.branchToDelete}`, {
             method: "DELETE"
         })
         .then(r => {
@@ -79,8 +83,8 @@ export default class extends React.Component {
                 this.setState({ showDeleteError: true, showDeleteConfirm: false })
             }
             else {
-                let books = this.state.books.filter(b => b.ID !== this.state.bookToDelete)
-                this.setState({ books: books, bookToDelete: null, showDeleteConfirm: false })
+                let branches = this.state.branches.filter(b => b.ID !== this.state.ranchToDelete)
+                this.setState({ branches: branches, branchToDelete: null, showDeleteConfirm: false })
             }
             return r.json()
         })
@@ -89,14 +93,14 @@ export default class extends React.Component {
     render() {
         return (
             <div className="container">
-                <h2 className="text-center">Manage Books</h2>
+                <h2 className="text-center">Manage Branches</h2>
                 <br/>
                 <br/>
                 {
                     this.state.showDeleteError && 
                     <Alert bsStyle="danger" onDismiss={this.closeDeleteErrorAlert}>
                         <h4>Uh oh!</h4>
-                        <p>There was a problem deleting that book, try again later.</p>
+                        <p>There was a problem deleting that branch, try again later.</p>
                     </Alert>
                 }
 
@@ -111,15 +115,15 @@ export default class extends React.Component {
                 </Modal>
 
                 {
-                    this.state.books !== undefined &&
+                    this.state.branches !== undefined &&
                     this.buildTable()
                 }
                 {
-                    this.state.books === undefined &&
+                    this.state.branches === undefined &&
                     <h2 className="text-center">Loading...</h2>
                 }
                 <div className="text-center">
-                    <Button bsStyle="success" className="btn-lg" href="/books/create">Create New</Button>
+                    <Button bsStyle="success" className="btn-lg" href="/branches/create">Create New</Button>
                     <br/>
                     <br/>
                 </div>
